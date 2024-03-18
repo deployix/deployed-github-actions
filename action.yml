@@ -1,0 +1,41 @@
+name: "Deployed Action"
+description: "Action Template to interact with deployed"
+author: "Deployix"
+
+inputs:
+  deployedVersion:
+    description: "Deployed CLI version to use"
+    default: "latest"
+
+  description:
+    description: "Description of the promotion"
+    required: true
+  
+  fromChannel:
+    description: "Channel to promote from"
+    required: true
+  
+  toChannel:
+    description: "Channel to promote to"
+    required: true
+
+  crontime:
+    description: "Crontime used to periodically promote"
+    required: true
+
+outputs:
+  promotedChannel:
+    description: "Channel that was promoted"
+  
+  promotedVersion:
+    description: "Version that was promoted"
+
+  timePromoted:
+    description: "Time that the promotion was made"
+
+  error:
+    description: "The error message if the promotion failed"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
