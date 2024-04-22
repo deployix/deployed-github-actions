@@ -1,9 +1,9 @@
-name: "Deployed Action"
-description: "Action Template to interact with deployed"
+name: "Deployed Promotion Action"
+description: "Promotion Action Template to interact with deployed cli"
 author: "Deployix"
 
 inputs:
-  deployedVersion:
+  version:
     description: "Deployed CLI version to use"
     default: "latest"
 
