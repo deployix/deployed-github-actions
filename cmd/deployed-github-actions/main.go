@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"os"
+
+	"github.com/deployix/deployed-github-actions/cmd/deployed-github-actions/github"
 )
 
 func main() {
@@ -10,14 +12,14 @@ func main() {
 
 	// STEPS:
 	// 1. Get deployed-cli with specific version or default to latest
-	input := DownloadGithubPackageInput{
+	input := github.DownloadGithubPackageInput{
 		HostURL:       os.Getenv("INPUT_HOST"),
 		OrgName:       os.Getenv("INPUT_ORG"),
 		RepoName:      os.Getenv("INPUT_REPO"),
 		Version:       os.Getenv("INPUT_VERSION"),
 		FileExtention: os.Getenv("INPUT_"), //TODO: use function to get file extention
 	}
-	if err := downloadPackage(ctx, input); err != nil {
+	if err := github.DownloadPackage(ctx, input); err != nil {
 		return
 	}
 	// 2. Execute deployed-cli with the given arguments

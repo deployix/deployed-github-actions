@@ -1,4 +1,4 @@
-package main
+package github
 
 import (
 	"context"
@@ -15,7 +15,7 @@ type DownloadGithubPackageInput struct {
 	FileExtention string
 }
 
-func downloadPackage(ctx context.Context, input DownloadGithubPackageInput) error {
+func DownloadPackage(ctx context.Context, input DownloadGithubPackageInput) error {
 	client := github.NewClient(nil)
 	// https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#get-a-release-by-tag-name
 	_, response, err := client.Repositories.GetReleaseByTag(ctx, input.OrgName, input.RepoName, input.Version)
