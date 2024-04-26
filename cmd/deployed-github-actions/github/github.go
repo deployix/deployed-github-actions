@@ -3,8 +3,9 @@ package github
 import (
 	"context"
 	"fmt"
+	"strings"
 
-	"github.com/google/go-github/v60/github"
+	"github.com/google/go-github/v61/github"
 )
 
 type DownloadGithubPackageInput struct {
@@ -15,16 +16,27 @@ type DownloadGithubPackageInput struct {
 	FileExtention string
 }
 
-func DownloadPackage(ctx context.Context, input DownloadGithubPackageInput) error {
-	client := github.NewClient(nil)
-	// https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#get-a-release-by-tag-name
-	_, response, err := client.Repositories.GetReleaseByTag(ctx, input.OrgName, input.RepoName, input.Version)
+func DownloadPackage(ctx context.Context, input DownloadGithubPackageInput) (*github.ReleaseAsset, error) {
+	tp := github.BasicAuthTransport{
+		Username: strings.TrimSpace("deployix"),
+		Password: strings.TrimSpace(""),
+	}
+	client := github.NewClient(tp.Client())
+
+	release, response, err := GetReleaseByTag(ctx, client, input.OrgName, input.RepoName, input.Version)
 	if err != nil {
-		return err
+		fmt.Println("error")
+		fmt.Println(err.Error())
+		return nil, err
+	}
+
+	for _, asset := range release.Assets {
+		fmt.Println(*asset.Name)
+		fmt.Println(*asset.BrowserDownloadURL)
 	}
 
 	if response.StatusCode == 404 {
-		return fmt.Errorf("Unable to find release")
+		return nil, fmt.Errorf("Unable to find release")
 	}
 
 	return nil

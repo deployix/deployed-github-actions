@@ -29,6 +29,9 @@ builds:
       - arm
       - arm64
 
+release:
+  make_latest: true
+  name_template: "{{.ProjectName}}-v{{.Version}}-{{.Arch}}"
 changelog:
   sort: asc
   filters:

@@ -2,7 +2,8 @@ package main
 
 import (
 	"context"
-	"os"
+	"fmt"
+	"os/exec"
 
 	"github.com/deployix/deployed-github-actions/cmd/deployed-github-actions/github"
 )
@@ -13,23 +14,27 @@ func main() {
 	// STEPS:
 	// 1. Get deployed-cli with specific version or default to latest
 	input := github.DownloadGithubPackageInput{
-		HostURL:       os.Getenv("INPUT_HOST"),
-		OrgName:       os.Getenv("INPUT_ORG"),
-		RepoName:      os.Getenv("INPUT_REPO"),
-		Version:       os.Getenv("INPUT_VERSION"),
-		FileExtention: os.Getenv("INPUT_"), //TODO: use function to get file extention
+		HostURL:       "github.com",              //os.Getenv("INPUT_HOST"),
+		OrgName:       "deployix",                //os.Getenv("INPUT_ORG"),
+		RepoName:      "deployed-github-actions", //os.Getenv("INPUT_REPO"),
+		Version:       "v0.0.1",                  //os.Getenv("INPUT_VERSION"),
+		FileExtention: ".tar.gz",                 //os.Getenv("INPUT_"), //TODO: use function to get file extention
 	}
-	if err := github.DownloadPackage(ctx, input); err != nil {
+	if _, err := github.DownloadPackage(ctx, input); err != nil {
 		return
 	}
 	// 2. Execute deployed-cli with the given arguments
-	// deployedCLIPath := ""
-	// cmd := exec.Command(deployedCLIPath, arg0, arg1, arg2, arg3)
+	deployedCLIPath := ""
+	cmd := exec.Command(deployedCLIPath, "-h")
 
-	// stdout, err := cmd.Output()
-	// if err != nil {
-	// 	return
-	// }
+	stdout, err := cmd.Output()
+	if err != nil {
+		fmt.Println("er")
+		fmt.Println(err.Error())
+		return
+	}
+
+	fmt.Println(string(stdout))
 
 	// 3. Return outputs
 
