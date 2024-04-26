@@ -39,5 +39,5 @@ func DownloadPackage(ctx context.Context, input DownloadGithubPackageInput) (*gi
 		return nil, fmt.Errorf("Unable to find release")
 	}
 
-	return nil
+	return nil, nil
 }
