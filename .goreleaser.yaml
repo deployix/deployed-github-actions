@@ -55,6 +55,11 @@ builds:
       - "{{ .Env.LDFLAGS }}"
     no_unique_dist_dir: true
 
+archives:
+  - format: tar.gz
+    # this name template makes the OS and Arch compatible with the results of `uname`.
+    name_template: '{{.ProjectName}}-v{{.Version}}-{{.Os}}-{{.Runtime.Goarch}}'
+
 release:
   make_latest: true
   name_template: "{{.ProjectName}}-v{{.Version}}-{{.Arch}}"
