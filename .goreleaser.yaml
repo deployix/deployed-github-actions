@@ -17,7 +17,7 @@ before:
 
 builds:
   - id: "linux-amd64"
-    binary: deployed
+    binary: "deployed-{{.Os}}"
     main: "./cmd/deployed-github-actions/main.go"
     env:
       - CGO_ENABLED=0
@@ -27,10 +27,9 @@ builds:
       - amd64
     ldflags:
       - "{{ .Env.LDFLAGS }}"
-    no_unique_dist_dir: true
 
   - id: "darwin-amd64"
-    binary: deployed
+    binary: "deployed-{{.Os}}"
     main: "./cmd/deployed-github-actions/main.go"
     env:
       - CGO_ENABLED=0
@@ -40,10 +39,9 @@ builds:
       - amd64
     ldflags:
       - "{{ .Env.LDFLAGS }}"
-    no_unique_dist_dir: true
 
   - id: "windows-amd64"
-    binary: deployed
+    binary: "deployed-{{.Os}}"
     main: "./cmd/deployed-github-actions/main.go"
     env:
       - CGO_ENABLED=0
@@ -53,12 +51,11 @@ builds:
       - amd64
     ldflags:
       - "{{ .Env.LDFLAGS }}"
-    no_unique_dist_dir: true
 
 archives:
   - format: tar.gz
     # this name template makes the OS and Arch compatible with the results of `uname`.
-    name_template: '{{.ProjectName}}-v{{.Version}}-{{.Os}}-{{.Runtime.Goarch}}'
+    name_template: "{{.ProjectName}}-v{{.Version}}-{{.Os}}-{{.Runtime.Goarch}}"
 
 release:
   make_latest: true
