@@ -16,39 +16,18 @@ before:
     - go generate ./...
 
 builds:
-  - id: "linux-amd64"
-    binary: "deployed-{{.Os}}"
+  - id: "deployed-github-actions"
+    binary: "deployed"
     main: "./cmd/deployed-github-actions/main.go"
     env:
       - CGO_ENABLED=0
     goos:
       - linux
-    goarch:
-      - amd64
-    ldflags:
-      - "{{ .Env.LDFLAGS }}"
-
-  - id: "darwin-amd64"
-    binary: "deployed-{{.Os}}"
-    main: "./cmd/deployed-github-actions/main.go"
-    env:
-      - CGO_ENABLED=0
-    goos:
       - darwin
-    goarch:
-      - amd64
-    ldflags:
-      - "{{ .Env.LDFLAGS }}"
-
-  - id: "windows-amd64"
-    binary: "deployed-{{.Os}}"
-    main: "./cmd/deployed-github-actions/main.go"
-    env:
-      - CGO_ENABLED=0
-    goos:
       - windows
     goarch:
       - amd64
+      - 
     ldflags:
       - "{{ .Env.LDFLAGS }}"
 
