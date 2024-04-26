@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/deployix/deployed-github-actions/cmd/deployed-github-actions/utils"
 	"github.com/google/go-github/v61/github"
 )
 
@@ -31,8 +32,9 @@ func DownloadPackage(ctx context.Context, input DownloadGithubPackageInput) (*gi
 	}
 
 	for _, asset := range release.Assets {
-		fmt.Println(*asset.Name)
+		fmt.Println(utils.GetExpectedAssetName("deployed-github-actions", input.Version))
 		fmt.Println(*asset.BrowserDownloadURL)
+
 	}
 
 	if response.StatusCode == 404 {

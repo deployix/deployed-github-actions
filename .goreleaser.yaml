@@ -17,7 +17,7 @@ before:
 
 builds:
   - id: "linux-amd64"
-    binary: deployed-{{ .Arch }}
+    binary: deployed
     main: "./cmd/deployed-github-actions/main.go"
     env:
       - CGO_ENABLED=0
@@ -30,7 +30,7 @@ builds:
     no_unique_dist_dir: true
 
   - id: "darwin-amd64"
-    binary: deployed-{{ .Arch }}
+    binary: deployed
     main: "./cmd/deployed-github-actions/main.go"
     env:
       - CGO_ENABLED=0
@@ -43,7 +43,7 @@ builds:
     no_unique_dist_dir: true
 
   - id: "windows-amd64"
-    binary: deployed-{{ .Arch }}
+    binary: deployed
     main: "./cmd/deployed-github-actions/main.go"
     env:
       - CGO_ENABLED=0
@@ -63,6 +63,7 @@ archives:
 release:
   make_latest: true
   name_template: "{{.ProjectName}}-v{{.Version}}-{{.Arch}}"
+
 changelog:
   sort: asc
   filters:
