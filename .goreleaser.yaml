@@ -16,18 +16,44 @@ before:
     - go generate ./...
 
 builds:
-  - id: "deployed-github-actions-cli"
+  - id: "linux-amd64"
+    binary: deployed-{{ .Arch }}
     main: "./cmd/deployed-github-actions/main.go"
     env:
       - CGO_ENABLED=0
     goos:
       - linux
-      - windows
+    goarch:
+      - amd64
+    ldflags:
+      - "{{ .Env.LDFLAGS }}"
+    no_unique_dist_dir: true
+
+  - id: "darwin-amd64"
+    binary: deployed-{{ .Arch }}
+    main: "./cmd/deployed-github-actions/main.go"
+    env:
+      - CGO_ENABLED=0
+    goos:
       - darwin
     goarch:
       - amd64
-      - arm
-      - arm64
+    ldflags:
+      - "{{ .Env.LDFLAGS }}"
+    no_unique_dist_dir: true
+
+  - id: "windows-amd64"
+    binary: deployed-{{ .Arch }}
+    main: "./cmd/deployed-github-actions/main.go"
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - windows
+    goarch:
+      - amd64
+    ldflags:
+      - "{{ .Env.LDFLAGS }}"
+    no_unique_dist_dir: true
 
 release:
   make_latest: true
