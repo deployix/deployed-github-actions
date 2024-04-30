@@ -14,11 +14,11 @@ func main() {
 	// STEPS:
 	// 1. Get deployed-cli with specific version or default to latest
 	input := github.DownloadGithubPackageInput{
-		HostURL:       "github.com",              //os.Getenv("INPUT_HOST"),
-		OrgName:       "deployix",                //os.Getenv("INPUT_ORG"),
-		RepoName:      "deployed-github-actions", //os.Getenv("INPUT_REPO"),
-		Version:       "v0.0.1",                  //os.Getenv("INPUT_VERSION"),
-		FileExtention: ".tar.gz",                 //os.Getenv("INPUT_"), //TODO: use function to get file extention
+		HostURL:   "github.com",                                        //os.Getenv("INPUT_HOST"),
+		OrgName:   "deployix",                                          //os.Getenv("INPUT_ORG"),
+		RepoName:  "deployed-github-actions",                           //os.Getenv("INPUT_REPO"),
+		Version:   "v0.0.1",                                            //os.Getenv("INPUT_VERSION"),
+		AssetName: "deployed-github-actions_0.0.1_darwin_amd64.tar.gz", //os.Getenv("INPUT_ASSETNAME"),
 	}
 	if _, err := github.DownloadPackage(ctx, input); err != nil {
 		return

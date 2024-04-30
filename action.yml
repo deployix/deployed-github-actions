@@ -7,6 +7,10 @@ inputs:
     description: "Deployed CLI version to use"
     default: "latest"
 
+  assetName:
+    description: "Name of the asset within the cli version you want to download"
+    required: true
+
   description:
     description: "Description of the promotion"
     required: true
