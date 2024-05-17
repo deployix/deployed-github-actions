@@ -14,15 +14,17 @@ func main() {
 	// STEPS:
 	// 1. Get deployed-cli with specific version or default to latest
 	input := github.DownloadGithubPackageInput{
-		HostURL:   "github.com",                                        //os.Getenv("INPUT_HOST"),
-		OrgName:   "deployix",                                          //os.Getenv("INPUT_ORG"),
-		RepoName:  "deployed-github-actions",                           //os.Getenv("INPUT_REPO"),
-		Version:   "v0.0.1",                                            //os.Getenv("INPUT_VERSION"),
-		AssetName: "deployed-github-actions_0.0.1_darwin_amd64.tar.gz", //os.Getenv("INPUT_ASSETNAME"),
+		HostURL:   "github.com",                          //os.Getenv("INPUT_HOST"),
+		OrgName:   "deployix",                            //os.Getenv("INPUT_ORG"),
+		RepoName:  "deployed",                            //os.Getenv("INPUT_REPO"),
+		Version:   "v0.0.1",                              //os.Getenv("INPUT_VERSION"),
+		AssetName: "deployed_v0.0.1_darwin-amd64.tar.gz", //os.Getenv("INPUT_ASSETNAME"),
 	}
-	if _, err := github.DownloadPackage(ctx, input); err != nil {
+	if _, err := github.DownloadGithubPackage(ctx, input); err != nil {
+		fmt.Println("err: " + err.Error())
 		return
 	}
+
 	// 2. Execute deployed-cli with the given arguments
 	deployedCLIPath := ""
 	cmd := exec.Command(deployedCLIPath, "-h")
