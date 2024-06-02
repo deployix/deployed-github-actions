@@ -25,7 +25,7 @@ func main() {
 	// ctx := context.Background()
 
 	input := WorkflowInput{
-		PromotionName: "local-to-dev", //os.Getenv("INPUT_PROMOTIONNAME"),
+		PromotionName: os.Getenv("INPUT_PROMOTIONNAME"),
 		Workspace:     os.Getenv("GITHUB_WORKSPACE"),
 	}
 
@@ -94,7 +94,7 @@ func main() {
 		return
 	}
 
-	url, err := gitconfig.OriginURL()
+	_, err = gitconfig.OriginURL()
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
 		return
@@ -118,14 +118,13 @@ func main() {
 		return
 	}
 
-	repo, err := gitconfig.Repository()
+	_, err = gitconfig.Repository()
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
 		return
 	}
 	pushOptions := git.PushOptions{
-		RemoteName: repo,
-		RemoteURL:  url,
+		Progress: os.Stdout,
 	}
 
 	// Set token auth if passed in
