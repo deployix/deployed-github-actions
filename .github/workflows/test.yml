@@ -22,6 +22,6 @@ jobs:
     - uses: deployix/deployed-github-actions@main
       if: always()
       with:
-        githubToken: ${{ REPO_GITHUB_SECRET }}
+        githubToken: ${{ secrets.REPO_GITHUB_SECRET }}
         description: "test"
         promotionName: "local-to-dev"
