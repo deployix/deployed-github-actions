@@ -1,0 +1,18 @@
+applicationName: deployed-github-actions
+datetimeFormat: rubydate
+defaultBranch: main
+defaultChannel: stg
+channels:
+  maxVersionHistoryLength: 100
+  notificationConfig:
+    slackConfig:
+      slackChannel: ""
+promotions:
+  pausePromotion: false
+  notificationConfig:
+    slackConfig:
+      slackChannel: ""
+git:
+  provider: github
+  domain: github.com
+  repoName: deployed-github-actions

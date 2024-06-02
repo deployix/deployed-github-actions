@@ -3,29 +3,17 @@ description: "Promotion Action Template to interact with deployed cli"
 author: "Deployix"
 
 inputs:
-  version:
-    description: "Deployed CLI version to use"
-    default: "latest"
-
-  assetName:
-    description: "Name of the asset within the cli version you want to download"
-    required: true
-
   description:
     description: "Description of the promotion"
     required: true
   
-  fromChannel:
-    description: "Channel to promote from"
-    required: true
-  
-  toChannel:
-    description: "Channel to promote to"
+  promotionName:
+    description: "Name of the promotion resource to target"
     required: true
 
-  crontime:
-    description: "Crontime used to periodically promote"
-    required: true
+  githubToken:
+    description: "Github token used to authenticate against your repo"
+    required: false
 
 outputs:
   promotedChannel:

@@ -1,0 +1,11 @@
+promotions:
+  local-to-dev:
+    name: local-to-dev
+    from_channel: local
+    to_channel: dev
+    crontime: '* * * * *'
+  stg-to-prd:
+    name: stg-to-prd
+    from_channel: stg
+    to_channel: prd
+    crontime: '* * * * *'

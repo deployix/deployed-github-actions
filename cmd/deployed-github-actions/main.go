@@ -1,43 +1,144 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	"os/exec"
+	"os"
+	"path/filepath"
+	"time"
 
-	"github.com/deployix/deployed-github-actions/cmd/deployed-github-actions/github"
+	constantsV1 "github.com/deployix/deployed/pkg/constants/v1"
+	promotionsV1 "github.com/deployix/deployed/pkg/promotions/v1"
+	utilsV1 "github.com/deployix/deployed/pkg/utils/v1"
+
+	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing/object"
+	"github.com/go-git/go-git/v5/plumbing/transport/http"
+	"github.com/tcnksm/go-gitconfig"
 )
 
-func main() {
-	ctx := context.Background()
+type WorkflowInput struct {
+	PromotionName string
+	Workspace     string
+}
 
-	// STEPS:
-	// 1. Get deployed-cli with specific version or default to latest
-	input := github.DownloadGithubPackageInput{
-		HostURL:   "github.com",                          //os.Getenv("INPUT_HOST"),
-		OrgName:   "deployix",                            //os.Getenv("INPUT_ORG"),
-		RepoName:  "deployed",                            //os.Getenv("INPUT_REPO"),
-		Version:   "v0.0.1",                              //os.Getenv("INPUT_VERSION"),
-		AssetName: "deployed_v0.0.1_darwin-amd64.tar.gz", //os.Getenv("INPUT_ASSETNAME"),
+func main() {
+	// ctx := context.Background()
+
+	input := WorkflowInput{
+		PromotionName: "local-to-dev", //os.Getenv("INPUT_PROMOTIONNAME"),
+		Workspace:     os.Getenv("GITHUB_WORKSPACE"),
 	}
-	if _, err := github.DownloadGithubPackage(ctx, input); err != nil {
+
+	// set working directory for filepath
+	os.Setenv(constantsV1.FILEPATH_WORKING_DIR_ENV, input.Workspace)
+
+	// get promotions
+	promotions, err := promotionsV1.GetPromotions()
+	if err != nil {
 		fmt.Println("err: " + err.Error())
 		return
 	}
 
-	// 2. Execute deployed-cli with the given arguments
-	deployedCLIPath := ""
-	cmd := exec.Command(deployedCLIPath, "-h")
-
-	stdout, err := cmd.Output()
-	if err != nil {
-		fmt.Println("er")
-		fmt.Println(err.Error())
+	// verify promotion expected exists
+	if !promotions.PromotionExists(input.PromotionName) {
+		fmt.Printf("promotion with the name `%s` does not exist", input.PromotionName)
 		return
 	}
 
-	fmt.Println(string(stdout))
+	// promote targeted promotion resource
+	targetedPromotion := promotions.Promotions[input.PromotionName]
+	if err := targetedPromotion.Promote(); err != nil {
+		fmt.Printf("err: %s", err.Error())
+		return
+	}
 
-	// 3. Return outputs
+	// commit changes to default branch
+	r, err := git.PlainOpen(input.Workspace)
+	if err != nil {
+		fmt.Printf("err: %s", err.Error())
+		return
+	}
+
+	w, err := r.Worktree()
+	if err != nil {
+		fmt.Printf("err: %s", err.Error())
+		return
+	}
+
+	// add channels.yml file to commit as thats what has changed
+	filePath := filepath.Join(input.Workspace, utilsV1.FilePaths.GetChannelsFilePath())
+	_, err = w.Add(filePath)
+	if err != nil {
+		fmt.Printf("err: %s", err.Error())
+		return
+	}
+
+	// print git status
+	status, err := w.Status()
+	if err != nil {
+		fmt.Printf("err: %s", err.Error())
+		return
+	}
+
+	fmt.Println(status)
+
+	username, err := gitconfig.Username()
+	if err != nil {
+		fmt.Printf("err: %s", err.Error())
+		return
+	}
+
+	email, err := gitconfig.Email()
+	if err != nil {
+		fmt.Printf("err: %s", err.Error())
+		return
+	}
+
+	url, err := gitconfig.OriginURL()
+	if err != nil {
+		fmt.Printf("err: %s", err.Error())
+		return
+	}
+
+	commit, err := w.Commit(fmt.Sprintf("Deployed: promote %s", targetedPromotion.Name), &git.CommitOptions{
+		Author: &object.Signature{
+			Name:  username,
+			Email: email,
+			When:  time.Now(),
+		},
+	})
+	if err != nil {
+		fmt.Printf("err: %s", err.Error())
+		return
+	}
+
+	_, err = r.CommitObject(commit)
+	if err != nil {
+		fmt.Printf("err: %s", err.Error())
+		return
+	}
+
+	repo, err := gitconfig.Repository()
+	if err != nil {
+		fmt.Printf("err: %s", err.Error())
+		return
+	}
+	pushOptions := git.PushOptions{
+		RemoteName: repo,
+		RemoteURL:  url,
+	}
+
+	// Set token auth if passed in
+	if os.Getenv("INPUT_GITHUBTOKEN") != "" {
+		pushOptions.Auth = &http.TokenAuth{
+			Token: os.Getenv("INPUT_GITHUBTOKEN"),
+		}
+	}
+
+	err = r.Push(&pushOptions)
+	if err != nil {
+		fmt.Printf("err: %s", err.Error())
+		return
+	}
 
 }
