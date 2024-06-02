@@ -1,7 +1,7 @@
 channels:
     dev:
         actionableVersion:
-            version: v3.0.0
+            version: v2.0.0
             datetime: Sun Jun 02 15:06:03 -0700 2024
         history:
             - version: v1.0.0
@@ -13,7 +13,7 @@ channels:
         history: []
     local:
         actionableVersion:
-            version: v3.0.0
+            version: v4.0.0
             datetime: rubydate
         history: []
     prd:
