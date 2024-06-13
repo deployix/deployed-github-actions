@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"time"
 
 	constantsV1 "github.com/deployix/deployed/pkg/constants/v1"
@@ -29,6 +30,11 @@ func main() {
 	}
 
 	fmt.Println(fmt.Sprintf("promotion name: %s", input.PromotionName))
+
+	filepath.Walk(input.PromotionName, func(name string, info os.FileInfo, err error) error {
+		fmt.Println(name)
+		return nil
+	})
 
 	// set working directory for filepath
 	os.Setenv(constantsV1.FILEPATH_WORKING_DIR_ENV, input.Workspace)
