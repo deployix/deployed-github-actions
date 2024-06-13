@@ -9,14 +9,15 @@ jobs:
           username: deployed-ci
           password: ${{  secrets.DOCKER_CONTAINER_REGISTRY_TOKEN }}
     steps:
+      - run: "echo Hello"
       # - name: Login to GitHub Container Registry
       #   uses: docker/login-action@v3
       #   with:
       #     registry: ghcr.io
       #     username: deployed-ci
       #     password: ${{ secrets.GITHUB_TOKEN }}
-      - name: promote local-to-dev
-        uses: docker://ghcr.io/deployix/deployed-github-actions
-        if: always()
-        with:
-          promotionName: "local-to-dev"
+      # - name: promote local-to-dev
+      #   uses: docker://ghcr.io/deployix/deployed-github-actions
+      #   if: always()
+      #   with:
+      #     promotionName: "local-to-dev"
