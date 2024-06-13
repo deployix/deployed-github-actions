@@ -25,7 +25,7 @@ func main() {
 
 	input := WorkflowInput{
 		PromotionName: os.Getenv("INPUT_PROMOTIONNAME"),
-		Workspace:     os.Getenv("GITHUB_WORKSPACE") + "deployed-github-actions",
+		Workspace:     os.Getenv("GITHUB_WORKSPACE") + "/deployed-github-actions",
 	}
 
 	fmt.Println(fmt.Sprintf("promotion name: %s", input.PromotionName))
