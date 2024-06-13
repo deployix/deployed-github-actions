@@ -2,14 +2,21 @@ name: Build
 on: [push]
 jobs:
   promotedChannel:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: extractions/netrc@v2
-        with:
-          machine: github.com
-          username: deployed-ci
-          password: SuperSecretPassword
-      - uses: docker://ghcr.io/deployix/deployed-github-actions
-        if: always()
+    container:
+      image: docker://ghcr.io/deployix/deployed-github-actions
+      credentials:
+        username: mona
+        password: ${{ secrets.DOCKER_CONTAINER_REGISTRY_TOKEN}}
         with:
           promotionName: "local-to-dev"
+    runs-on: ubuntu-latest
+    # steps:
+    #   - uses: extractions/netrc@v2
+    #     with:
+    #       machine: github.com
+    #       username: deployed-ci
+    #       password: SuperSecretPassword
+    #   - uses: docker://ghcr.io/deployix/deployed-github-actions
+    #     if: always()
+    #     with:
+    #       promotionName: "local-to-dev"
