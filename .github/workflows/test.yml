@@ -1,11 +1,14 @@
 name: Build
 on: [push]
 jobs:
-  build:
-    name: Promote
-    runs-on: ubuntu-latest
+  promotedChannel:
+    runs-on: ubuntu-18.04
+    container:
+        image: ghcr.io/deployix/deployed-github-actions
+        credentials:
+            username: <YOUR_USERNAME>
+            password: ${{  secrets.DOCKER_CONTAINER_REGISTRY_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
       - uses: extractions/netrc@v2
         with:
           machine: github.com
