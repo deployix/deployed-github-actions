@@ -1,23 +1,15 @@
-name: Promote 
+name: Build
 on: [push]
 jobs:
   promotedChannel:
     runs-on: ubuntu-latest
-    container:
-        image: docker://ghcr.io/deployix/deployed-github-actions
-        credentials:
-          username: deployed-ci
-          password: ${{  secrets.DOCKER_CONTAINER_REGISTRY_TOKEN }}
     steps:
-      - run: "ls -a"
-      # - name: Login to GitHub Container Registry
-      #   uses: docker/login-action@v3
-      #   with:
-      #     registry: ghcr.io
-      #     username: deployed-ci
-      #     password: ${{ secrets.GITHUB_TOKEN }}
-      # - name: promote local-to-dev
-      #   uses: docker://ghcr.io/deployix/deployed-github-actions
-      #   if: always()
-      #   with:
-      #     promotionName: "local-to-dev"
+      - uses: extractions/netrc@v2
+        with:
+          machine: github.com
+          username: deployed-ci
+          password: SuperSecretPassword
+      - uses: deployix/deployed-github-actions@main
+        if: always()
+        with:
+          promotionName: "local-to-dev"
