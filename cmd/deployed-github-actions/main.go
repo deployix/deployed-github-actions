@@ -18,6 +18,8 @@ import (
 type WorkflowInput struct {
 	PromotionName string
 	Workspace     string
+	Author        string
+	Email         string
 }
 
 func main() {
@@ -25,6 +27,8 @@ func main() {
 
 	input := WorkflowInput{
 		PromotionName: os.Getenv("INPUT_PROMOTIONNAME"),
+		Author:        os.Getenv("GITHUB_ACTOR"),
+		Email:         "test@test.com",
 		Workspace:     os.Getenv("GITHUB_WORKSPACE"),
 	}
 
@@ -90,19 +94,19 @@ func main() {
 		return
 	}
 
-	fmt.Println("username")
-	username, err := gitconfig.Username()
-	if err != nil {
-		fmt.Printf("err: %s", err.Error())
-		return
-	}
+	// fmt.Println("username")
+	// username, err := gitconfig.Username()
+	// if err != nil {
+	// 	fmt.Printf("err: %s", err.Error())
+	// 	return
+	// }
 
-	fmt.Println("email")
-	email, err := gitconfig.Email()
-	if err != nil {
-		fmt.Printf("err: %s", err.Error())
-		return
-	}
+	// fmt.Println("email")
+	// email, err := gitconfig.Email()
+	// if err != nil {
+	// 	fmt.Printf("err: %s", err.Error())
+	// 	return
+	// }
 
 	fmt.Println("origin")
 	_, err = gitconfig.OriginURL()
@@ -114,8 +118,8 @@ func main() {
 	fmt.Println("commit object")
 	commit, err := w.Commit(fmt.Sprintf("Deployed: promote %s", targetedPromotion.Name), &git.CommitOptions{
 		Author: &object.Signature{
-			Name:  username,
-			Email: email,
+			Name:  input.Author,
+			Email: input.Email,
 			When:  time.Now(),
 		},
 	})
