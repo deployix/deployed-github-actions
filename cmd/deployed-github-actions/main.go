@@ -93,24 +93,28 @@ func main() {
 
 	fmt.Println(status)
 
+	fmt.Println("username")
 	username, err := gitconfig.Username()
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
 		return
 	}
 
+	fmt.Println("email")
 	email, err := gitconfig.Email()
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
 		return
 	}
 
+	fmt.Println("origin")
 	_, err = gitconfig.OriginURL()
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
 		return
 	}
 
+	fmt.Println("commit object")
 	commit, err := w.Commit(fmt.Sprintf("Deployed: promote %s", targetedPromotion.Name), &git.CommitOptions{
 		Author: &object.Signature{
 			Name:  username,
@@ -123,12 +127,14 @@ func main() {
 		return
 	}
 
+	fmt.Println("commit")
 	_, err = r.CommitObject(commit)
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
 		return
 	}
 
+	fmt.Println("repo")
 	_, err = gitconfig.Repository()
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
@@ -145,6 +151,7 @@ func main() {
 		}
 	}
 
+	fmt.Println("push")
 	err = r.Push(&pushOptions)
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
