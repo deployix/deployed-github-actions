@@ -40,7 +40,7 @@ runs:
    - "${{ inputs.mesdescriptionsage }}"
    - --promotionName
    - "${{ inputs.promotionName }}"
-   - --githubToken
+   - --GITHUB_TOKEN
    - "${{ inputs.githubToken }}"
-   - --githubUsername
+   - --GITHUB_LOGIN
    - "${{ inputs.githubUsername }}"
