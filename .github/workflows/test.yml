@@ -5,6 +5,7 @@ jobs:
     name: Promote
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v5
       - uses: deployix/deployed-github-actions@main
         if: always()
         with:
