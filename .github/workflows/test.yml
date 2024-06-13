@@ -10,7 +10,7 @@ jobs:
         with:
           machine: github.com
           username: deployed-ci
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: SuperSecretPassword
       - uses: deployix/deployed-github-actions@main
         if: always()
         with:
