@@ -12,7 +12,6 @@ import (
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
-	"github.com/tcnksm/go-gitconfig"
 )
 
 type WorkflowInput struct {
@@ -135,12 +134,12 @@ func main() {
 		return
 	}
 
-	fmt.Println("repo")
-	_, err = gitconfig.Repository()
-	if err != nil {
-		fmt.Printf("err: %s", err.Error())
-		return
-	}
+	// fmt.Println("repo")
+	// _, err = gitconfig.Repository()
+	// if err != nil {
+	// 	fmt.Printf("err: %s", err.Error())
+	// 	return
+	// }
 	pushOptions := git.PushOptions{
 		Progress: os.Stdout,
 	}
