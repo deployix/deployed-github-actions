@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: extractions/netrc@v1
+      - uses: extractions/netrc@v2
         with:
           machine: github.com
           username: deployed-ci
@@ -15,5 +15,4 @@ jobs:
         if: always()
         with:
           secrets: |
-            "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
-            "GITHUB_USERNAME=${{ inputs.githubUsername}}"
+            "netrc=~/.netrc"
