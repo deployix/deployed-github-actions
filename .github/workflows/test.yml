@@ -6,9 +6,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: extractions/netrc@v1
+        with:
+          machine: github.com
+          username: deployed-ci
+          password: ${{ secrets.GITHUB_TOKEN }}
       - uses: deployix/deployed-github-actions@main
         if: always()
         with:
-          build-args: |
-            GITHUB_USERNAME=${{ inputs.githubUsername }}
-            GITHUB_TOKEN=${{ inputs.githubToken }}
+          secrets: |
+            "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
+            "GITHUB_USERNAME=${{ inputs.githubUsername}}"
