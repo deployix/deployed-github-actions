@@ -1,12 +1,12 @@
 FROM golang:1.22
 
-ARG GITHUB_USERNAME
+ARG DEPLOYED_GITHUB_USERNAME
 ARG GITHUB_TOKEN
 
 WORKDIR /deployed-github-actions
 
 COPY . .
-RUN echo "machine github.com login ${GITHUB_USERNAME} password ${GITHUB_TOKEN}" > ~/.netrc
+RUN echo "machine github.com login ${DEPLOYED_GITHUB_USERNAME} password ${GITHUB_TOKEN}" > ~/.netrc
 RUN chmod 600 ~/.netrc
 
 RUN go env -w GOPRIVATE=github.com/deployix/deployed/*

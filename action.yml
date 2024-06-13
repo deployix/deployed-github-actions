@@ -42,5 +42,5 @@ runs:
    - "${{ inputs.promotionName }}"
    - --GITHUB_TOKEN
    - "${{ inputs.githubToken }}"
-   - --GITHUB_USERNAME
+   - --DEPLOYED_GITHUB_USERNAME
    - "${{ inputs.githubUsername }}"
