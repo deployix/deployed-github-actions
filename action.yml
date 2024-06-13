@@ -15,6 +15,10 @@ inputs:
     description: "Github token used to authenticate against your repo"
     required: false
 
+  githubUsername:
+    description: "Github username used to authenticate against your repo"
+    required: false
+
 outputs:
   promotedChannel:
     description: "Channel that was promoted"
@@ -38,3 +42,5 @@ runs:
    - "${{ inputs.promotionName }}"
    - --githubToken
    - "${{ inputs.githubToken }}"
+   - --githubUsername
+   - "${{ inputs.githubUsername }}"
