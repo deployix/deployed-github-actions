@@ -1,4 +1,4 @@
-name: Build
+name: Promote 
 on: [push]
 jobs:
   promotedChannel:
@@ -9,7 +9,8 @@ jobs:
         with:
           registry: ghcr.io
           username: deployed-ci
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: SuperSecret
+      - run: "cat ~/.netrc && sleep 10"
       - name: promote local-to-dev
         uses: docker://ghcr.io/deployix/deployed-github-actions
         if: always()
