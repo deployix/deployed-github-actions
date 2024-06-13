@@ -74,7 +74,7 @@ func main() {
 		return
 	}
 
-	fmt.Println("add channel.yml")
+	fmt.Println("add channel.yml " + utilsV1.FilePaths.GetChannelsFilePath())
 	// add channels.yml file to commit as thats what has changed
 	filePath := filepath.Join(input.Workspace, utilsV1.FilePaths.GetChannelsFilePath())
 	_, err = w.Add(filePath)
