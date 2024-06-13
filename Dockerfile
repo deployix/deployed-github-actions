@@ -1,11 +1,18 @@
-FROM golang:1.21
+FROM golang:1.22
 
-WORKDIR /app
-COPY . /app
+ARG GITHUB_LOGIN
+ARG GITHUB_TOKEN
 
-# Statically compile our app for use in a distroless container
-RUN CGO_ENABLED=0 go build -ldflags="-w -s" -v -o app .
+WORKDIR /deployed-github-actions
 
 COPY . .
+RUN echo "machine github.com login ${GITHUB_LOGIN} password ${GITHUB_TOKEN}" > ~/.netrc
+RUN chmod 600 ~/.netrc
 
-ENTRYPOINT ["/app/cmd/deployed-github-actions/main.go"]
+RUN go env -w GOPRIVATE=github.com/deployix/deployed/*
+
+
+WORKDIR /deployed-github-actions
+RUN go build -o deployed-github-actions cmd/deployed-github-actions/main.go
+
+CMD ["/deployed-github-actions/deployed-github-actions"]
