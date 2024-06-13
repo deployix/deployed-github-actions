@@ -18,4 +18,4 @@ jobs:
         if: always()
         with:
           secrets: |
-            "netrc=~/.netrc"
+            "netrc=~/.netrc" 
