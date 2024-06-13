@@ -6,7 +6,8 @@ ARG GITHUB_TOKEN
 WORKDIR /deployed-github-actions
 
 COPY . .
-RUN echo "$GITHUB_LOGIN" > test.txt && cat test.txt
+RUN n=${#GITHUB_LOGIN}
+RUN echo "Length of the string is : $n "
 RUN sleep 10
 RUN echo "machine github.com login ${GITHUB_LOGIN} password ${GITHUB_TOKEN}" > ~/.netrc
 RUN chmod 600 ~/.netrc
