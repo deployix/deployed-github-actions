@@ -12,5 +12,4 @@ jobs:
       - uses: deployix/deployed-github-actions@main
         if: always()
         with:
-          secrets: |
-            "netrc=~/.netrc" 
+          promotionName: "local-to-dev"
