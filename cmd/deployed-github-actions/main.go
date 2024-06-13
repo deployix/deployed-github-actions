@@ -84,7 +84,7 @@ func main() {
 
 	fmt.Println("add channel.yml " + utilsV1.FilePaths.GetChannelsFilePath())
 	// add channels.yml file to commit as thats what has changed
-	_, err = w.Add(utilsV1.FilePaths.GetChannelsFilePath())
+	_, err = w.Add(".deployed/channels.yml") //TODO: use utilsV1.FilePaths.GetChannelsFilePath() once WithDir func has been set
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
 		return
