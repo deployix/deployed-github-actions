@@ -4,6 +4,7 @@ jobs:
   promotedChannel:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: extractions/netrc@v2
         with:
           machine: github.com
