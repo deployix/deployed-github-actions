@@ -2,7 +2,7 @@ name: Build
 on: [push]
 jobs:
   promotedChannel:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     container:
         image: ghcr.io/deployix/deployed-github-actions
         credentials:
