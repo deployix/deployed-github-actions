@@ -34,4 +34,4 @@ outputs:
 
 runs:
   using: "docker"
-  image: docker://ghcr.io/deployix/deployed-github-actions
+  image: "Dockerfile"

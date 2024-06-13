@@ -9,7 +9,7 @@ jobs:
           machine: github.com
           username: deployed-ci
           password: SuperSecretPassword
-      - uses: deployix/deployed-github-actions@main
+      - uses: docker://ghcr.io/deployix/deployed-github-actions
         if: always()
         with:
           promotionName: "local-to-dev"
