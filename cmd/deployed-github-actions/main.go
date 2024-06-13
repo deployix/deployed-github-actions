@@ -73,14 +73,6 @@ func main() {
 		return
 	}
 
-	fmt.Println("add channel.yml " + utilsV1.FilePaths.GetChannelsFilePath())
-	// add channels.yml file to commit as thats what has changed
-	_, err = w.Add(utilsV1.FilePaths.GetChannelsFilePath())
-	if err != nil {
-		fmt.Printf("err: %s", err.Error())
-		return
-	}
-
 	fmt.Println("status")
 	// print git status
 	status, err := w.Status()
@@ -88,8 +80,15 @@ func main() {
 		fmt.Printf("err: %s", err.Error())
 		return
 	}
-
 	fmt.Println(status)
+
+	fmt.Println("add channel.yml " + utilsV1.FilePaths.GetChannelsFilePath())
+	// add channels.yml file to commit as thats what has changed
+	_, err = w.Add(utilsV1.FilePaths.GetChannelsFilePath())
+	if err != nil {
+		fmt.Printf("err: %s", err.Error())
+		return
+	}
 
 	fmt.Println("username")
 	username, err := gitconfig.Username()
