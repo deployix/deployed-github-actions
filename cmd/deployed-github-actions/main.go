@@ -108,12 +108,12 @@ func main() {
 	// 	return
 	// }
 
-	fmt.Println("origin")
-	_, err = gitconfig.OriginURL()
-	if err != nil {
-		fmt.Printf("err: %s", err.Error())
-		return
-	}
+	// fmt.Println("origin")
+	// _, err = gitconfig.OriginURL()
+	// if err != nil {
+	// 	fmt.Printf("err: %s", err.Error())
+	// 	return
+	// }
 
 	fmt.Println("commit object")
 	commit, err := w.Commit(fmt.Sprintf("Deployed: promote %s", targetedPromotion.Name), &git.CommitOptions{
