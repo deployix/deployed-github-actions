@@ -4,18 +4,14 @@ jobs:
   promotedChannel:
     runs-on: ubuntu-latest
     steps:
-      # - uses: extractions/netrc@v2
-      #   with:
-      #     machine: github.com
-      #     username: deployed-ci
-      #     password: SuperSecretPassword
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: deployed-ci
           password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: docker://ghcr.io/deployix/deployed-github-actions
+      - name: promote local-to-dev
+        uses: docker://ghcr.io/deployix/deployed-github-actions
         if: always()
         with:
           promotionName: "local-to-dev"
