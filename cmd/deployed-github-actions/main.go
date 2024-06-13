@@ -34,7 +34,7 @@ func main() {
 	os.Setenv(constantsV1.FILEPATH_WORKING_DIR_ENV, input.Workspace)
 	fmt.Println(fmt.Sprintf("Working Dir: %s", input.Workspace))
 
-	fmt.Println("getting promotions")
+	fmt.Println("getting promotions " + utilsV1.FilePaths.GetPromotionsFilePath())
 	// get promotions
 	promotions, err := promotionsV1.GetPromotions()
 	if err != nil {
