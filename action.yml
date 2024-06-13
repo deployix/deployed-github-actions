@@ -11,12 +11,9 @@ inputs:
     description: "Name of the promotion resource to target"
     required: true
 
-  githubToken:
-    description: "Github token used to authenticate against your repo"
-    required: false
-
-  githubUsername:
-    description: "Github username used to authenticate against your repo"
+  workingDir: 
+    description: "Working directory that contains your repo. Defaults to '.'"
+    default: "."
     required: false
 
 outputs:

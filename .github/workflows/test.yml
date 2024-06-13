@@ -5,11 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: extractions/netrc@v2
-        with:
-          machine: github.com
-          username: deployed-ci
-          password: SuperSecretPassword
       - uses: deployix/deployed-github-actions@main
         if: always()
         with:

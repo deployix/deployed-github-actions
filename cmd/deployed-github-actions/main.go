@@ -29,9 +29,13 @@ func main() {
 		Workspace:     os.Getenv("GITHUB_WORKSPACE"),
 	}
 
+	fmt.Println(fmt.Sprintf("promotion name: %s", input.PromotionName))
+
 	// set working directory for filepath
 	os.Setenv(constantsV1.FILEPATH_WORKING_DIR_ENV, input.Workspace)
+	fmt.Println(fmt.Sprintf("Working Dir: %s", input.Workspace))
 
+	fmt.Println("getting promotions")
 	// get promotions
 	promotions, err := promotionsV1.GetPromotions()
 	if err != nil {
@@ -39,12 +43,15 @@ func main() {
 		return
 	}
 
+	fmt.Println("checking promotions exists")
+
 	// verify promotion expected exists
 	if !promotions.PromotionExists(input.PromotionName) {
 		fmt.Printf("promotion with the name `%s` does not exist", input.PromotionName)
 		return
 	}
 
+	fmt.Println("updating promotion")
 	// promote targeted promotion resource
 	targetedPromotion := promotions.Promotions[input.PromotionName]
 	if err := targetedPromotion.Promote(); err != nil {
@@ -52,6 +59,7 @@ func main() {
 		return
 	}
 
+	fmt.Println("commiting change")
 	// commit changes to default branch
 	r, err := git.PlainOpen(input.Workspace)
 	if err != nil {
@@ -59,12 +67,14 @@ func main() {
 		return
 	}
 
+	fmt.Println("worktree")
 	w, err := r.Worktree()
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
 		return
 	}
 
+	fmt.Println("add channel.yml")
 	// add channels.yml file to commit as thats what has changed
 	filePath := filepath.Join(input.Workspace, utilsV1.FilePaths.GetChannelsFilePath())
 	_, err = w.Add(filePath)
@@ -73,6 +83,7 @@ func main() {
 		return
 	}
 
+	fmt.Println("status")
 	// print git status
 	status, err := w.Status()
 	if err != nil {
