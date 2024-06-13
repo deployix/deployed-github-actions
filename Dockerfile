@@ -1,19 +1,15 @@
 FROM golang:1.22
 
-ARG GITHUB_LOGIN
+ARG GITHUB_USERNAME
 ARG GITHUB_TOKEN
 
 WORKDIR /deployed-github-actions
 
 COPY . .
-RUN n=${#GITHUB_LOGIN}
-RUN echo "Length of the string is : $n "
-RUN sleep 10
-RUN echo "machine github.com login ${GITHUB_LOGIN} password ${GITHUB_TOKEN}" > ~/.netrc
+RUN echo "machine github.com login ${GITHUB_USERNAME} password ${GITHUB_TOKEN}" > ~/.netrc
 RUN chmod 600 ~/.netrc
 
 RUN go env -w GOPRIVATE=github.com/deployix/deployed/*
-
 
 WORKDIR /deployed-github-actions
 RUN go build -o deployed-github-actions cmd/deployed-github-actions/main.go
