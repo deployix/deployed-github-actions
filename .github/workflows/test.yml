@@ -8,7 +8,6 @@ jobs:
       - uses: deployix/deployed-github-actions@main
         if: always()
         with:
-          githubToken: ${{ secrets.REPO_GITHUB_SECRET }}
-          githubUsername: "deployed-ci"
-          description: "test description"
-          promotionName: "local-to-dev"
+          build-args: |
+            GITHUB_USERNAME=${{ inputs.githubUsername }}
+            GITHUB_TOKEN=${{ inputs.githubToken }}

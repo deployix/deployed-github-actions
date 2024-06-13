@@ -1,12 +1,12 @@
 FROM golang:1.22
 
-ARG DEPLOYED_GITHUB_USERNAME
+ARG GITHUB_USERNAME
 ARG GITHUB_TOKEN
 
 WORKDIR /deployed-github-actions
 
 COPY . .
-RUN echo "machine github.com login ${DEPLOYED_GITHUB_USERNAME} password ${GITHUB_TOKEN}" > ~/.netrc
+RUN echo "machine github.com login ${GITHUB_USERNAME}" > ~/.netrc
 RUN chmod 600 ~/.netrc
 
 RUN cat ~/.netrc

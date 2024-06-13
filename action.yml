@@ -35,12 +35,3 @@ outputs:
 runs:
   using: "docker"
   image: "Dockerfile"
-  args:
-   - --description
-   - "${{ inputs.mesdescriptionsage }}"
-   - --promotionName
-   - "${{ inputs.promotionName }}"
-   - --GITHUB_TOKEN
-   - "${{ inputs.githubToken }}"
-   - --DEPLOYED_GITHUB_USERNAME
-   - "${{ inputs.githubUsername }}"
