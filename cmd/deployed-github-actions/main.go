@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"time"
 
 	constantsV1 "github.com/deployix/deployed/pkg/constants/v1"
@@ -76,8 +75,7 @@ func main() {
 
 	fmt.Println("add channel.yml " + utilsV1.FilePaths.GetChannelsFilePath())
 	// add channels.yml file to commit as thats what has changed
-	filePath := filepath.Join(input.Workspace, utilsV1.FilePaths.GetChannelsFilePath())
-	_, err = w.Add(filePath)
+	_, err = w.Add(utilsV1.FilePaths.GetChannelsFilePath())
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
 		return
