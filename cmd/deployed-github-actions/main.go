@@ -19,6 +19,7 @@ type WorkflowInput struct {
 	Workspace     string
 	Author        string
 	Email         string
+	GitHubToken   string
 }
 
 func main() {
@@ -29,6 +30,7 @@ func main() {
 		Author:        os.Getenv("GITHUB_ACTOR"),
 		Email:         "test@test.com",
 		Workspace:     os.Getenv("GITHUB_WORKSPACE"),
+		GitHubToken:   os.Getenv("GITHUB_TOKEN"),
 	}
 
 	fmt.Println(fmt.Sprintf("promotion name: %s", input.PromotionName))
@@ -146,7 +148,7 @@ func main() {
 
 	// Set token auth if passed in
 	pushOptions.Auth = &http.TokenAuth{
-		Token: os.Getenv("GITHUB_TOKEN"),
+		Token: input.GitHubToken,
 	}
 
 	fmt.Println("push")
