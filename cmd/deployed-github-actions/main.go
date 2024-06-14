@@ -145,10 +145,8 @@ func main() {
 	}
 
 	// Set token auth if passed in
-	if os.Getenv("INPUT_GITHUBTOKEN") != "" {
-		pushOptions.Auth = &http.TokenAuth{
-			Token: os.Getenv("INPUT_GITHUBTOKEN"),
-		}
+	pushOptions.Auth = &http.TokenAuth{
+		Token: os.Getenv("GITHUB_TOKEN"),
 	}
 
 	fmt.Println("push")
