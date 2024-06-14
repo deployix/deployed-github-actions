@@ -16,6 +16,10 @@ inputs:
     default: "."
     required: false
 
+  githubToken:
+    description: "token used to push changes to your repo"
+    required: true
+
 outputs:
   promotedChannel:
     description: "Channel that was promoted"
@@ -33,4 +37,4 @@ runs:
   using: "docker"
   image: "Dockerfile"
   env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    GITHUB_TOKEN: ${{ input.githubToken }}
