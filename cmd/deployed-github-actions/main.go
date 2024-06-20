@@ -150,8 +150,9 @@ func main() {
 		fmt.Println("GITHUB_TOKEN is empty")
 	}
 	// Set token auth if passed in
-	pushOptions.Auth = &http.TokenAuth{
-		Token: input.GitHubToken,
+	pushOptions.Auth = &http.BasicAuth{
+		Username: "deployix",
+		Password: input.GitHubToken,
 	}
 
 	fmt.Println("push")
