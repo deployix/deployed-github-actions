@@ -145,13 +145,9 @@ func main() {
 	pushOptions := git.PushOptions{
 		Progress: os.Stdout,
 		Auth: &http.BasicAuth{
-			Username: "deployix",
+			Username: os.Getenv("INPUT_USER_EMAIL"),
 			Password: input.GitHubToken,
 		},
-	}
-
-	if input.GitHubToken == "" {
-		fmt.Println("GITHUB_TOKEN is empty")
 	}
 
 	fmt.Println("push")
