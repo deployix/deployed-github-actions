@@ -11,3 +11,4 @@ jobs:
           promotionName: "local-to-dev"
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           email: ${{ secrets.USER_EMAIL }}
+          test: "Some test I am running"

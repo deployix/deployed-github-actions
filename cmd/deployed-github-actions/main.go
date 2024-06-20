@@ -151,6 +151,8 @@ func main() {
 	}
 
 	fmt.Println("push")
+
+	fmt.Println(os.Getenv("SOME_TEST"))
 	err = r.Push(&pushOptions)
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
