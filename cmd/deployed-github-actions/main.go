@@ -145,14 +145,12 @@ func main() {
 	pushOptions := git.PushOptions{
 		Progress: os.Stdout,
 		Auth: &http.BasicAuth{
-			Username: os.Getenv("INPUT_USER_EMAIL"),
+			Username: "deployix",
 			Password: input.GitHubToken,
 		},
 	}
 
 	fmt.Println("push")
-
-	fmt.Println(os.Getenv("SOME_TEST"))
 	err = r.Push(&pushOptions)
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())

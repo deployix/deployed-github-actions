@@ -23,10 +23,6 @@ inputs:
   email:
     description: "token used to push changes to your repo"
     required: true
-  
-  test: 
-    description: "test"
-    required: true
 
 outputs:
   promotedChannel:
