@@ -144,9 +144,8 @@ func main() {
 	// }
 	pushOptions := git.PushOptions{
 		Progress: os.Stdout,
-		Auth: &http.BasicAuth{
-			Username: "deployix",
-			Password: input.GitHubToken,
+		Auth: &http.TokenAuth{
+			Token: input.GitHubToken,
 		},
 	}
 
