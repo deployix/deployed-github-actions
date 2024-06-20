@@ -30,7 +30,7 @@ func main() {
 		Author:        os.Getenv("GITHUB_ACTOR"),
 		Email:         "test@test.com",
 		Workspace:     os.Getenv("GITHUB_WORKSPACE"),
-		GitHubToken:   os.Getenv("INPUT_GITHUBTOKEN"),
+		GitHubToken:   os.Getenv("INPUT_WW_GITHUB_TOKEN"),
 	}
 
 	fmt.Println(fmt.Sprintf("promotion name: %s", input.PromotionName))

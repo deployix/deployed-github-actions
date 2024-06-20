@@ -41,6 +41,6 @@ runs:
   using: "docker"
   image: "Dockerfile"
   env:
-    GITHUB_TOKEN: ${{ inputs.githubToken }}
+    WW_GITHUB_TOKEN: ${{ inputs.githubToken }}
     INPUT_USER_EMAIL: ${{ inputs.email }}
     SOME_TEST: ${{ inputs.test }}
