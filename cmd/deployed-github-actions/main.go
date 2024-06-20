@@ -26,7 +26,7 @@ func main() {
 	// ctx := context.Background()
 
 	input := WorkflowInput{
-		PromotionName: os.Getenv("INPUT_PROMOTIONNAME"),
+		PromotionName: "local-to-dev", //os.Getenv("INPUT_PROMOTIONNAME"),
 		Author:        os.Getenv("GITHUB_ACTOR"),
 		Email:         "test@test.com",
 		Workspace:     os.Getenv("GITHUB_WORKSPACE"),
@@ -146,6 +146,9 @@ func main() {
 		Progress: os.Stdout,
 	}
 
+	if input.GitHubToken == "" {
+		fmt.Println("GITHUB_TOKEN is empty")
+	}
 	// Set token auth if passed in
 	pushOptions.Auth = &http.TokenAuth{
 		Token: input.GitHubToken,
