@@ -9,5 +9,5 @@ jobs:
         if: always()
         with:
           promotionName: "local-to-dev"
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          email: ${{ github.token  }}
+          githubToken: ${{ github.token }}
+          email: ${{ secrets.USER_EMAIL }}
