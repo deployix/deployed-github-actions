@@ -144,11 +144,16 @@ func main() {
 	// }
 	pushOptions := git.PushOptions{
 		Progress: os.Stdout,
-		Auth: &http.TokenAuth{
-			Token: input.GitHubToken,
+		Auth: &http.BasicAuth{
+			Username: "deployix",
+			Password: input.GitHubToken,
 		},
 	}
 
+	email := os.Getenv("INPUT_USER_EMAIL")
+
+	fmt.Println("EMAIL: " + email[0:5])
+	fmt.Println("RR: " + input.GitHubToken[0:5])
 	fmt.Println("push")
 	err = r.Push(&pushOptions)
 	if err != nil {
