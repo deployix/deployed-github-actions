@@ -1,7 +1,5 @@
 name: Build
-on:
-  schedule:
-    - cron:  '5 * * * *'
+on: [push]
 jobs:
   promotedChannel:
     runs-on: ubuntu-latest
