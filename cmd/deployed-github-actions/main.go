@@ -33,7 +33,7 @@ func main() {
 	os.Setenv(constantsV1.FILEPATH_WORKING_DIR_ENV, input.Workspace)
 	fmt.Println(fmt.Sprintf("Working Dir: %s", input.Workspace))
 
-	fmt.Println("getting promotions " + utilsV1.FilePaths.GetPromotionsFilePath())
+	fmt.Println("getting promotions " + utilsV1.FilePaths().SetRootDir(input.Workspace).GetPromotionsFilePath())
 	// get promotions
 	promotions, err := promotionsV1.GetPromotions()
 	if err != nil {
@@ -81,7 +81,7 @@ func main() {
 	}
 	fmt.Println(status)
 
-	fmt.Println("add channel.yml " + utilsV1.FilePaths.GetChannelsFilePath())
+	fmt.Println("add channel.yml " + utilsV1.FilePaths().GetChannelsFilePath())
 	// add channels.yml file to commit as thats what has changed
 	_, err = w.Add(".deployed/channels.yml") //TODO: use utilsV1.FilePaths.GetChannelsFilePath() once WithDir func has been set
 	if err != nil {
@@ -103,16 +103,11 @@ func main() {
 		return
 	}
 
-	// fmt.Println("repo")
-	// _, err = gitconfig.Repository()
-	// if err != nil {
-	// 	fmt.Printf("err: %s", err.Error())
-	// 	return
-	// }
 	pushOptions := git.PushOptions{
 		Progress: os.Stdout,
-		Auth: &http.TokenAuth{
-			Token: input.GitHubToken,
+		Auth: &http.BasicAuth{
+			Username: "deployix",
+			Password: input.GitHubToken,
 		},
 	}
 

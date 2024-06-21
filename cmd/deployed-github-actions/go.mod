@@ -3,10 +3,9 @@ module github.com/deployix/deployed-github-actions/cmd/deployed-github-actions
 go 1.20
 
 require (
-	github.com/deployix/deployed v0.0.5
+	github.com/deployix/deployed v0.0.6
 	github.com/go-git/go-git/v5 v5.12.0
 	github.com/google/go-github/v60 v60.0.0
-	github.com/tcnksm/go-gitconfig v0.1.2
 )
 
 require (
