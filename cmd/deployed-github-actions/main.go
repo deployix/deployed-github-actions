@@ -15,8 +15,6 @@ import (
 type WorkflowInput struct {
 	PromotionName string
 	Workspace     string
-	Author        string
-	Email         string
 	GitHubToken   string
 }
 
@@ -24,9 +22,7 @@ func main() {
 	// ctx := context.Background()
 
 	input := WorkflowInput{
-		PromotionName: "local-to-dev", //os.Getenv("INPUT_PROMOTIONNAME"),
-		Author:        os.Getenv("GITHUB_ACTOR"),
-		Email:         "test@test.com",
+		PromotionName: os.Getenv("INPUT_PROMOTIONNAME"),
 		Workspace:     os.Getenv("GITHUB_WORKSPACE"),
 		GitHubToken:   os.Getenv("WW_GITHUB_TOKEN"),
 	}
@@ -93,29 +89,8 @@ func main() {
 		return
 	}
 
-	// fmt.Println("username")
-	// username, err := gitconfig.Username()
-	// if err != nil {
-	// 	fmt.Printf("err: %s", err.Error())
-	// 	return
-	// }
-
-	// fmt.Println("email")
-	// email, err := gitconfig.Email()
-	// if err != nil {
-	// 	fmt.Printf("err: %s", err.Error())
-	// 	return
-	// }
-
-	// fmt.Println("origin")
-	// _, err = gitconfig.OriginURL()
-	// if err != nil {
-	// 	fmt.Printf("err: %s", err.Error())
-	// 	return
-	// }
-
 	fmt.Println("commit object")
-	commit, err := w.Commit(fmt.Sprintf("Deployed: promote %s", targetedPromotion.Name), &git.CommitOptions{})
+	commit, err := w.Commit(fmt.Sprintf("Deployed: promote %s", targetedPromotion.Name), &git.CommitOptions{}) //TODO: custom commit message
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
 		return
@@ -136,9 +111,8 @@ func main() {
 	// }
 	pushOptions := git.PushOptions{
 		Progress: os.Stdout,
-		Auth: &http.BasicAuth{
-			Username: "deployix",
-			Password: input.GitHubToken,
+		Auth: &http.TokenAuth{
+			Token: input.GitHubToken,
 		},
 	}
 
