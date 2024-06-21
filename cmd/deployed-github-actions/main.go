@@ -3,14 +3,12 @@ package main
 import (
 	"fmt"
 	"os"
-	"time"
 
 	constantsV1 "github.com/deployix/deployed/pkg/constants/v1"
 	promotionsV1 "github.com/deployix/deployed/pkg/promotions/v1"
 	utilsV1 "github.com/deployix/deployed/pkg/utils/v1"
 
 	"github.com/go-git/go-git/v5"
-	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
 )
 
@@ -117,13 +115,7 @@ func main() {
 	// }
 
 	fmt.Println("commit object")
-	commit, err := w.Commit(fmt.Sprintf("Deployed: promote %s", targetedPromotion.Name), &git.CommitOptions{
-		Author: &object.Signature{
-			Name:  input.Author,
-			Email: input.Email,
-			When:  time.Now(),
-		},
-	})
+	commit, err := w.Commit(fmt.Sprintf("Deployed: promote %s", targetedPromotion.Name), &git.CommitOptions{})
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
 		return
@@ -145,7 +137,7 @@ func main() {
 	pushOptions := git.PushOptions{
 		Progress: os.Stdout,
 		Auth: &http.BasicAuth{
-			Username: os.Getenv("INPUT_USER_EMAIL"),
+			Username: "deployix",
 			Password: input.GitHubToken,
 		},
 	}

@@ -1,16 +1,18 @@
-# name: Build
-# on: [push]
-# jobs:
-#   promotedChannel:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v4
-#       - run: |
-#           git config user.name "github-actions[bot]"
-#           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-#       - uses: deployix/deployed-github-actions@main
-#         if: always()
-#         with:
-#           promotionName: "local-to-dev"
-#           githubToken: ${{ secrets.SUPER_SECRET_PAT }}
-#           email: ${{ secrets.USER_EMAIL }}
+name: Build
+on:
+  schedule:
+    - cron:  '5 * * * *'
+jobs:
+  promotedChannel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - uses: deployix/deployed-github-actions@main
+        if: always()
+        with:
+          promotionName: "local-to-dev"
+          githubToken: ${{ secrets.SUPER_SECRET_PAT }}
+          email: ${{ secrets.USER_EMAIL }}
