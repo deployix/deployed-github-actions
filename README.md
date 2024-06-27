@@ -8,12 +8,3 @@ Github Actions Concurrency: https://stackoverflow.com/questions/66335225/how-to-
 
 Go github actions
 https://github.com/sethvargo/go-githubactions
-
-netrc
-https://github.com/extractions/netrc
-
-      # - uses: extractions/netrc@v2
-      #   with:
-      #     machine: github.com
-      #     username: deployed-ci
-      #     password: SuperSecretPassword

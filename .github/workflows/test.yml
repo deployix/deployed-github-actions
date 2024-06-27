@@ -9,4 +9,4 @@ jobs:
         if: always()
         with:
           promotionName: "local-to-dev"
-          githubToken: ${{ secrets.SUPER_SECRET_PAT }}
+          githubPAT: ${{ secrets.SUPER_SECRET_PAT }}
