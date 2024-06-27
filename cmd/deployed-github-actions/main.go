@@ -15,22 +15,20 @@ import (
 )
 
 type WorkflowInput struct {
-	PromotionName  string
-	Workspace      string
-	GitHubToken    string
-	SignatureName  string
-	SignatureEmail string
+	PromotionName string
+	Workspace     string
+	GitHubToken   string
+	SignatureName string
 }
 
 func main() {
 	// ctx := context.Background()
 
 	input := WorkflowInput{
-		PromotionName:  os.Getenv("INPUT_PROMOTIONNAME"),
-		Workspace:      os.Getenv("GITHUB_WORKSPACE"),
-		GitHubToken:    os.Getenv("GITHUB_PAT"),
-		SignatureName:  constants.GITHUB_SIGNATURE_NAME,
-		SignatureEmail: constants.GITHUB_SIGNATURE_EMAIL,
+		PromotionName: os.Getenv("INPUT_PROMOTIONNAME"),
+		Workspace:     os.Getenv("GITHUB_WORKSPACE"),
+		GitHubToken:   os.Getenv("GITHUB_PAT"),
+		SignatureName: constants.GITHUB_SIGNATURE_NAME,
 	}
 
 	// get promotions
