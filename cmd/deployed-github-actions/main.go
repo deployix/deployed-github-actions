@@ -7,6 +7,7 @@ import (
 
 	"github.com/deployix/deployed-github-actions/internal/deployed-github-actions/constants"
 	promotionsV1 "github.com/deployix/deployed/pkg/promotions/v1"
+	utilsV1 "github.com/deployix/deployed/pkg/utils/v1"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -66,7 +67,7 @@ func main() {
 	}
 
 	// add channels.yml file to commit as thats what has changed
-	_, err = w.Add(".deployed/channels.yml")
+	_, err = w.Add(utilsV1.FilePaths().GetChannelsFilePath())
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
 		return
@@ -93,7 +94,7 @@ func main() {
 	pushOptions := git.PushOptions{
 		Progress: os.Stdout,
 		Auth: &http.BasicAuth{
-			Username: "deployix",
+			Username: input.SignatureName,
 			Password: input.GitHubToken,
 		},
 	}
