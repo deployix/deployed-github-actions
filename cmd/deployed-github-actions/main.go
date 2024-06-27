@@ -75,9 +75,8 @@ func main() {
 
 	commit, err := w.Commit(fmt.Sprintf("Deployed: promote %s", targetedPromotion.Name), &git.CommitOptions{
 		Author: &object.Signature{
-			Name:  input.SignatureName,
-			Email: input.SignatureEmail,
-			When:  time.Now(),
+			Name: input.SignatureName,
+			When: time.Now(),
 		},
 	}) //TODO: custom commit message
 	if err != nil {
