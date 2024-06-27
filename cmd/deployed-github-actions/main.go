@@ -7,7 +7,6 @@ import (
 
 	"github.com/deployix/deployed-github-actions/internal/deployed-github-actions/constants"
 	promotionsV1 "github.com/deployix/deployed/pkg/promotions/v1"
-	utilsV1 "github.com/deployix/deployed/pkg/utils/v1"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -67,9 +66,7 @@ func main() {
 	}
 
 	// add channels.yml file to commit as thats what has changed
-	path := utilsV1.FilePaths().GetChannelsFilePath()
-	fmt.Println("PATH: " + path)
-	_, err = w.Add(path)
+	_, err = w.Add(".deployed/channels.yml")
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
 		return
