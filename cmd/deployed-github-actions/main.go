@@ -67,7 +67,9 @@ func main() {
 	}
 
 	// add channels.yml file to commit as thats what has changed
-	_, err = w.Add(utilsV1.FilePaths().GetChannelsFilePath())
+	path := utilsV1.FilePaths().GetChannelsFilePath()
+	fmt.Println("PATH: " + path)
+	_, err = w.Add(path)
 	if err != nil {
 		fmt.Printf("err: %s", err.Error())
 		return
