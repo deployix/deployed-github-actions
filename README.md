@@ -8,3 +8,5 @@ Github Actions Concurrency: https://stackoverflow.com/questions/66335225/how-to-
 
 Go github actions
 https://github.com/sethvargo/go-githubactions
+
+https://api.github.com/users/deployed-github-actions%5Bbot%5D
